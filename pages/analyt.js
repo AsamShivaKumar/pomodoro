@@ -46,7 +46,7 @@ export default function Analytics() {
                 <>
                 <Box direction="row" width="350px" height="250px" pad="30px" justify="between" align="center" className="pie">
                     <Meter 
-                        values={[{value: (stats.done*100/stats.done+stats.missed),label: 'done', color: "active"},{value: (stats.missed*100/stats.done+stats.missed),label: 'missed', color: "red"} ]} 
+                        values={[{value: (stats.done*100/(stats.done+stats.missed)),label: 'done', color: "active"},{value: (stats.missed*100/(stats.done+stats.missed)),label: 'missed', color: "red"} ]} 
                         type="pie" width="150px" margin="0" height="150px" />
                     <Box direction="column" gap="10px" className="label">
                         <span><div className="circle" style={{background: "#F86F03"}}></div> Done</span>
@@ -58,13 +58,20 @@ export default function Analytics() {
             }
             {userObj &&
                 <div className="bar">
-                    <Chart color="active" className="barChart" thickness="20px"
-                        bounds={[[0, 7], [0, 100]]}
-                        values={ userObj.weekStats.map((val,ind) => ({value: [ind,val*10], label: val}))
-                        }
-                        aria-label="chart" size="small" gap="20px"                 
-                        />
-                    <p style={{fontSize: "0.8rem"}}>Tomatoes earned this week</p>
+                    {userObj.weekStats.some(x => (x != 0)) && 
+                        <>
+                            <Chart color="active" className="barChart" thickness="20px"
+                                bounds={[[0, 7], [0, 100]]}
+                                values={ userObj.weekStats.map((val,ind) => ({value: [ind,val*10], label: val}))
+                                }
+                                aria-label="chart" size="small" gap="20px"                 
+                                />
+                            <p style={{fontSize: "0.8rem"}}>Tomatoes earned this week</p>
+                        </>
+                    }
+                    {
+                        userObj.weekStats.every(x => (x == 0)) && <h1>Earn tomatoes to see the analysis</h1>
+                    }
                 </div>
             }
         </div>
