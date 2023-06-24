@@ -46,7 +46,7 @@ export default function Analytics() {
                 <>
                 <Box direction="row" width="350px" height="250px" pad="30px" justify="between" align="center" className="pie">
                     <Meter 
-                        values={[{value: (stats.done*100/(stats.done+stats.missed)),label: 'done', color: "active"},{value: (stats.missed*100/(stats.done+stats.missed)),label: 'missed', color: "red"} ]} 
+                        values={[{value: ((stats.done+stats.missed == 0)? 0:stats.done*100/(stats.done+stats.missed)),label: 'done', color: "active"},{value: ((stats.done+stats.missed == 0)? 1:stats.missed*100/(stats.done+stats.missed)),label: 'missed', color: "red"} ]} 
                         type="pie" width="150px" margin="0" height="150px" />
                     <Box direction="column" gap="10px" className="label">
                         <span><div className="circle" style={{background: "#F86F03"}}></div> Done</span>
@@ -70,7 +70,7 @@ export default function Analytics() {
                         </>
                     }
                     {
-                        userObj.weekStats.every(x => (x == 0)) && <h1 className="barChart">Earn tomatoes to see the analysis</h1>
+                        userObj.weekStats.every(x => (x == 0)) && <h1 className="barChart" style={{padding: "20px 20px"}}>Earn tomatoes to see the analysis</h1>
                     }
                 </div>
             }
