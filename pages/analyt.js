@@ -70,7 +70,7 @@ export default function Analytics() {
                         </>
                     }
                     {
-                        userObj.weekStats.every(x => (x == 0)) && <h1 className="barChart" style={{padding: "20px 20px", height: "200px", wordBreak: "break-all"}}>Earn tomatoes to see the analysis</h1>
+                        userObj.weekStats.every(x => (x == 0)) && <h1 className="barChart" style={{padding: "20px 20px", height: "200px", wordBreak: "break-all", lineHeight: "1.5"}}>Earn tomatoes to see the analysis</h1>
                     }
                 </div>
             }
