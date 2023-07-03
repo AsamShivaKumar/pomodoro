@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 
 import axios from "axios";
+import SuprSendInbox from '@suprsend/react-inbox';
 
 const GET_TASK = gql`
   query GetTask($id: String!) {
@@ -104,6 +105,11 @@ export default function Pomo(props){
 
     return (
         <div className="mainDiv">
+            <SuprSendInbox
+                workspaceKey= {process.env.NEXT_PUBLIC_WORKSPACE_KEY}
+                subscriberId= {user.email}
+                distinctId= {user.email}
+            />
             <Box background="active" width="375px" height="100px" pad="30px" direction='row' align='center' justify="between">
                 <Box direction="column">
                     <h4 style={{color: "white"}}>{new Date().getDate() + "/" + (new Date().getMonth()+1)}</h4>

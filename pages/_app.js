@@ -3,8 +3,9 @@ import NavBar from '../components/NavBar';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import {Grommet} from 'grommet';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import suprsend from "@suprsend/web-sdk";
 
 const theme = {
   global: {
@@ -32,6 +33,17 @@ export default function MyApp({ Component, pageProps }) {
 
   const router = useRouter();
   const path = router.pathname;
+
+  useEffect(() => {
+
+    console.log(process.env);
+
+    console.log(process.env.NEXT_PUBLIC_VAPID_KEY,process.env.NEXT_PUBLIC_WORKSPACE_KEY, process.env.NEXT_PUBLIC_WORKSPACE_SECRET,"key");
+
+    suprsend.init(process.env.NEXT_PUBLIC_WORKSPACE_KEY, process.env.NEXT_PUBLIC_WORKSPACE_SECRET, {vapid_key: process.env.NEXT_PUBLIC_VAPID_KEY})
+    suprsend.web_push.register_push();
+    suprsend.web_push.notification_permission();
+  },[]);
 
   return (
     <UserProvider>
